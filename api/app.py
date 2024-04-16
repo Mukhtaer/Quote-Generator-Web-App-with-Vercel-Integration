@@ -1,6 +1,7 @@
 
-from flask import Flask, render_template   
+from flask import Flask, render_template, send_from_directory  
 import random
+import os
 
 app = Flask(__name__)
 
@@ -190,9 +191,9 @@ def index():
     quote = random.choice(quotes)
     return render_template('index.html', quote=quote)
 
-@app.route("/favicon.ico")
-def favicon():
-    return url_for('static', filename='data:,')
+@app.route('/favicon.ico') 
+def favicon(): 
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 if __name__ == '__main__':
     app.run(debug=True)
